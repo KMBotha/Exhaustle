@@ -3,6 +3,7 @@ package vcmsa.projects.exhaustle
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import java.util.concurrent.Executors
 
 class GameWindow : AppCompatActivity() {
     var guessNum : Number = 1
+    lateinit var FinalAnswer : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,7 +25,16 @@ class GameWindow : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        wordleStart()
+        val executor2 = Executors.newSingleThreadExecutor()
+        executor2.execute {
+            val url = URL("https://localhost:32771/Word/GetSingle") // /Word/GetSingle
+            val json = url.readText()
+            FinalAnswer = Gson().fromJson(json, String::class.java)
+        }
+        var btnSubmit2 : Button = findViewById(R.id.btnSubmit2)
+        btnSubmit2.setOnClickListener() {
+            wordleStart()
+        }
     }
 
     fun wordleStart(){
@@ -31,15 +42,13 @@ class GameWindow : AppCompatActivity() {
         val guessedWordArray = guessedWord.toCharArray()
         val executor = Executors.newSingleThreadExecutor()
         executor.execute {
-            val url = URL("https:") //insert the actual url for the api later
+            val url = URL("https://localhost:32771/Word/ValidateWord?enteredWord=" + guessedWord) //insert the actual url for the api and then add /Word/ValidateWord?enteredWord=" + guessedWord inside the ""
             val json = url.readText()
             Log.d("GameWindow", json.toString())
             val ValidationArr = Gson().fromJson(json, Array<String>::class.java)
             var colourArray = validationF(ValidationArr)
             displayValidation(colourArray, guessedWordArray)
         }
-
-
     }
 
 
@@ -63,6 +72,7 @@ class GameWindow : AppCompatActivity() {
         return colourNumbers;
     }
     fun displayValidation(valid: Array<String>, letters: CharArray){
+        lateinit var trackNum : Number
         if (guessNum==1){
             findViewById<TextView>(R.id.editW1Letter1).setBackgroundColor(valid[1].toInt())
             findViewById<TextView>(R.id.editW1Letter1).setText(letters[1].toString())
@@ -74,7 +84,7 @@ class GameWindow : AppCompatActivity() {
             findViewById<TextView>(R.id.editW1Letter4).setText(letters[4].toString())
             findViewById<TextView>(R.id.editW1Letter5).setBackgroundColor(valid[5].toInt())
             findViewById<TextView>(R.id.editW1Letter5).setText(letters[5].toString())
-            guessNum= 2
+            trackNum= 2
         } else if (guessNum==2){
             findViewById<TextView>(R.id.editW2Letter1).setBackgroundColor(valid[1].toInt())
             findViewById<TextView>(R.id.editW2Letter1).setText(letters[1].toString())
@@ -86,7 +96,7 @@ class GameWindow : AppCompatActivity() {
             findViewById<TextView>(R.id.editW2Letter4).setText(letters[4].toString())
             findViewById<TextView>(R.id.editW2Letter5).setBackgroundColor(valid[5].toInt())
             findViewById<TextView>(R.id.editW2Letter5).setText(letters[5].toString())
-            guessNum= 3
+            trackNum= 3
         } else if (guessNum==3){
             findViewById<TextView>(R.id.editW3Letter1).setBackgroundColor(valid[1].toInt())
             findViewById<TextView>(R.id.editW3Letter1).setText(letters[1].toString())
@@ -98,7 +108,7 @@ class GameWindow : AppCompatActivity() {
             findViewById<TextView>(R.id.editW3Letter4).setText(letters[4].toString())
             findViewById<TextView>(R.id.editW3Letter5).setBackgroundColor(valid[5].toInt())
             findViewById<TextView>(R.id.editW3Letter5).setText(letters[5].toString())
-            guessNum= 4
+            trackNum= 4
         } else if (guessNum==4){
             findViewById<TextView>(R.id.editW4Letter1).setBackgroundColor(valid[1].toInt())
             findViewById<TextView>(R.id.editW4Letter1).setText(letters[1].toString())
@@ -110,7 +120,7 @@ class GameWindow : AppCompatActivity() {
             findViewById<TextView>(R.id.editW4Letter4).setText(letters[4].toString())
             findViewById<TextView>(R.id.editW4Letter5).setBackgroundColor(valid[5].toInt())
             findViewById<TextView>(R.id.editW4Letter5).setText(letters[5].toString())
-            guessNum=5
+            trackNum=5
         } else if (guessNum==5){
             findViewById<TextView>(R.id.editW5Letter1).setBackgroundColor(valid[1].toInt())
             findViewById<TextView>(R.id.editW5Letter1).setText(letters[1].toString())
@@ -122,7 +132,12 @@ class GameWindow : AppCompatActivity() {
             findViewById<TextView>(R.id.editW5Letter4).setText(letters[4].toString())
             findViewById<TextView>(R.id.editW5Letter5).setBackgroundColor(valid[5].toInt())
             findViewById<TextView>(R.id.editW5Letter5).setText(letters[5].toString())
+            trackNum==6
+
+        } else if (guessNum==6){
+            findViewById<TextView>(R.id.txtResponse).setText(FinalAnswer)
         }
+        guessNum=trackNum
     }
 
 
