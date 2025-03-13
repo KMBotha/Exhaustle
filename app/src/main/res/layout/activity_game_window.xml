@@ -253,17 +253,28 @@
         android:id="@+id/editW2Letter2"
         android:layout_width="58dp"
         android:layout_height="45dp"
+<<<<<<< HEAD
         android:layout_marginTop="410dp"
+=======
+>>>>>>> master
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="text"
         android:textAlignment="center"
+<<<<<<< HEAD
         app:layout_constraintBottom_toBottomOf="parent"
+=======
+        app:layout_constraintBottom_toTopOf="@+id/editW3Letter2"
+>>>>>>> master
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+<<<<<<< HEAD
         app:layout_constraintVertical_bias="0.0" />
+=======
+        app:layout_constraintVertical_bias="1.0" />
+>>>>>>> master
 
     <EditText
         android:id="@+id/editW2Letter5"
@@ -342,16 +353,29 @@
         android:layout_width="58dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
+<<<<<<< HEAD
+=======
+        android:layout_marginEnd="18dp"
+>>>>>>> master
         android:layout_marginBottom="12dp"
         android:ems="10"
         android:inputType="text"
         android:textAlignment="center"
+<<<<<<< HEAD
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.252"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.523" />
+=======
+        app:layout_constraintBottom_toTopOf="@+id/editW2Letter2"
+        app:layout_constraintEnd_toStartOf="@+id/editW1Letter3"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toEndOf="@+id/editW1Letter1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.994" />
+>>>>>>> master
 
     <Button
         android:id="@+id/btnSubmit2"
@@ -416,11 +440,20 @@
         android:ems="10"
         android:inputType="text"
         android:textAlignment="center"
+<<<<<<< HEAD
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.522" />
+=======
+        app:layout_constraintBottom_toTopOf="@+id/editW2Letter1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.067"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.997" />
+>>>>>>> master
 
 </androidx.constraintlayout.widget.ConstraintLayout>
