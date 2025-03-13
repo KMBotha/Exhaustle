@@ -1,6 +1,10 @@
 package vcmsa.projects.exhaustle
 
 import android.graphics.Color
+<<<<<<< HEAD
+import android.net.http.UrlRequest
+=======
+>>>>>>> master
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -27,6 +31,31 @@ class GameWindow : AppCompatActivity() {
         }
         val executor2 = Executors.newSingleThreadExecutor()
         executor2.execute {
+<<<<<<< HEAD
+            try{
+                val url = URL("http://10.0.2.2:5045/Word/GetSingle") // /Word/GetSingle
+                val json = url.readText()
+
+                //Log.d("GameWindow", "Randomly generated word: $json")
+                if (json.isNotEmpty())
+                {
+                    FinalAnswer = Gson().fromJson(json, String::class.java)
+                    Log.d("GameWindow", "Final Answer: $FinalAnswer")
+                }
+                else
+                {
+                    Log.e("GameWindow", "API response is empty.")
+                }
+        } catch (e: Exception) {
+            Log.e("GameWindow", "Error in fetching data", e)
+        }
+    }
+        var btnSubmit2 : Button = findViewById(R.id.btnSubmit2)
+        btnSubmit2.setOnClickListener() {
+            wordleStart()
+        }
+    }
+=======
             val url = URL("https://localhost:32771/Word/GetSingle") // /Word/GetSingle
             val json = url.readText()
             FinalAnswer = Gson().fromJson(json, String::class.java)
@@ -36,15 +65,27 @@ class GameWindow : AppCompatActivity() {
             wordleStart()
         }
     }
+>>>>>>> master
 
     fun wordleStart(){
         val guessedWord = findViewById<TextView>(R.id.txtGuess).text.toString()
         val guessedWordArray = guessedWord.toCharArray()
+<<<<<<< HEAD
+
+        Log.e("GameWindow", "Word guessed:" + guessedWord)
+        val executor = Executors.newSingleThreadExecutor()
+        executor.execute {
+            //val url = UrlRequest.Builder(){"Post", "http://10.0.2.2:5045/Word/ValidateWord", guessedWord }//insert the actual url for the api and then add /Word/ValidateWord?enteredWord=" + guessedWord inside the ""
+            val url = URL("http://10.0.2.2:5045/Word/ValidateWord/$guessedWord")
+            val json = url.readText()
+            Log.d("GameWindow", "Word here:" + json.toString())
+=======
         val executor = Executors.newSingleThreadExecutor()
         executor.execute {
             val url = URL("https://localhost:32771/Word/ValidateWord?enteredWord=" + guessedWord) //insert the actual url for the api and then add /Word/ValidateWord?enteredWord=" + guessedWord inside the ""
             val json = url.readText()
             Log.d("GameWindow", json.toString())
+>>>>>>> master
             val ValidationArr = Gson().fromJson(json, Array<String>::class.java)
             var colourArray = validationF(ValidationArr)
             displayValidation(colourArray, guessedWordArray)
